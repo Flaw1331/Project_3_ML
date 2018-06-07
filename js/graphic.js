@@ -15,8 +15,8 @@ function makeResponsive() {
 
 
     // SVG wrapper dimensions are determined by the current width and height of the browser window.
-    var svgWidth = window.innerWidth * .65;
-    var svgHeight = window.innerHeight * .8;
+    var svgWidth = 1600
+    var svgHeight = 900;
 
     // Creating final word list
     var wordList = ['yes', 'no', 'up', 'down', 'left', 'right', 'on', 'off', 'stop', 'go'];
@@ -35,14 +35,14 @@ function makeResponsive() {
     var chart = svg.append('g');
 
     // Append a div to the body to create tooltips, assign it a class
-    d3.select("#graphic")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
+    // d3.select("#graphic").select('svg')
+    //     .append("div")
+    //     .attr("class", "tooltip")
+    //     .style("opacity", 0);
 
     // Creating tooltips
     var toolTip = d3.tip()
-        .attr("class", "tooltip")
+        .attr('class', 'tooltip')
         .offset([150,0])
         .html(function(wordList, index) {
             var word = wordList;
@@ -74,7 +74,7 @@ function makeResponsive() {
                 .duration(500)
                 .attr("r", svgHeight*.05)
                 .style("fill", "red");
-            //toolTip.show(data);
+            toolTip.show(data);
         })
         .on("mouseout", function(data, index) {
             d3.select(this)
@@ -82,7 +82,7 @@ function makeResponsive() {
                 .duration(500)
                 .attr("r", svgHeight*.04)
                 .style("fill", "black");
-            //toolTip.hide(data);
+            toolTip.hide(data);
         });
 
     // State Abbr add
