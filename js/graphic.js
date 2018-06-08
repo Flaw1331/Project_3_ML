@@ -15,8 +15,8 @@ function makeResponsive() {
 
 
     // SVG wrapper dimensions are determined by the current width and height of the browser window.
-    var svgWidth = 1600
-    var svgHeight = 900;
+    var svgWidth = window.innerWidth - 100;
+    var svgHeight = window.innerHeight - 280;
 
     // Creating final word list
     var wordList = ['yes', 'no', 'up', 'down', 'left', 'right', 'on', 'off', 'stop', 'go'];
@@ -65,14 +65,15 @@ function makeResponsive() {
             return svgHeight/4;
         })
         .attr("r", function(data, index) {
-            return svgHeight*.04;
+            return '50';
         })
         .attr("fill", 'black')
+        .attr("opacity", ".8")
         .on("mouseover", function(data, index) {
             d3.select(this)
                 .transition()
                 .duration(500)
-                .attr("r", svgHeight*.05)
+                .attr("r", '60')
                 .style("fill", "red");
             toolTip.show(data);
         })
@@ -80,7 +81,7 @@ function makeResponsive() {
             d3.select(this)
                 .transition()
                 .duration(500)
-                .attr("r", svgHeight*.04)
+                .attr("r", "50")
                 .style("fill", "black");
             toolTip.hide(data);
         });
@@ -91,9 +92,9 @@ function makeResponsive() {
         .enter()
         .append("text")
         .attr("x", function(data, index) { return ((index+1)/(posArray.length+1) * svgWidth); })
-        .attr("y", function(data) { return svgHeight/4; })
-        .text(function (data) { return data; })
+        .attr("y", function(data) { return svgHeight/4 + 5; })
+        .text(function (data) { return data.toUpperCase(); })
         .attr('fill', 'white')
-        .style("font-size", function(data) { return svgHeight*.02; })
+        .style("font-size", function(data) { return '22'; })
         .style("text-anchor", "middle");
 };
