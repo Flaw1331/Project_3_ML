@@ -10,27 +10,37 @@ function makeResponsive() {
     // Find json data
     d3.json("/predict", function (error, jsonData) {
 
-        if (error) throw error;
-
         // if the SVG area isn't empty when the browser loads, remove it and replace it with a resized version of the chart
-        // var svgArea = d3.select("#graphic").select("svg");
-        // if (!svgArea.empty()) {
-        //     svgArea.remove();
-        // };
+        var svgArea = d3.select("#graphic").select("svg");
+        if (!svgArea.empty()) {
+            svgArea.remove();
+        };
+
+        console.log(Object.keys(jsonData).length)
+        
+        var labels = []
+        var scores = []
+        for (var key in jsonData) {
+            if (jsonData.hasOwnProperty(key)) {
+                labels.push(key)
+                scores.push(jsonData[key])
+            }
+        }
+        console.log(labels);
+        console.log(scores);
+
 
 
         // SVG wrapper dimensions are determined by the current width and height of the browser window.
-        var svgWidth = window.innerWidth - 700;
-        var svgHeight = window.innerHeight - 300;
+        var svgWidth = window.innerWidth - 100;
+        var svgHeight = window.innerHeight - 280;
 
-        console.log(Object.keys(jsonData));
-        // var keys = Object.keys(jsonData);
-        var data = jsonData;
-        console.log(data);
-        Object.keys(data).forEach(function (key){
-            key.value = +key.value;
-        });
+        // Creating final word list
+        // var wordList = ['yes', 'no', 'up', 'down', 'left', 'right', 'on', 'off', 'stop', 'go'];
 
+        //  --------------------------------------
+        var posArray = [0,10,20,30,40,50,60,70,80,90];
+        //  --------------------------------------
 
         // Create SVG wrapper
         var svg = d3.select("#graphic")
@@ -42,32 +52,30 @@ function makeResponsive() {
         var chart = svg.append('g');
 
         // Creating tooltips
-        // var toolTip = d3.tip()
-        //     .attr('class', 'tooltip')
-        //     .offset([150,0])
-        //     .html(function(data, index) {
-        //         var word = data.key;
-        //         return (`${word}`);
-        //     });
+        var toolTip = d3.tip()
+            .attr('class', 'tooltip')
+            .offset([150,0])
+            .html(function(jsonData, index) {
+                var word = data[index];
+                return (`${word}`);
+            });
 
         // Calling Tooltips
-        // chart.call(toolTip);
+        chart.call(toolTip);
 
-
-        console.log(svgHeight/2, svgWidth/Object.keys(data).length);
         // Plotting circles
         chart.selectAll("circle")
-            .data(data)
+            .data(posArray)
             .enter()
             .append("circle")
-            .attr("cx", function(data) {
-                return svgWidth/Object.keys(data).length;
+            .attr("cx", function(data, index) {
+                return ((index+1)/(posArray.length+1) * svgWidth);
             })
-            .attr("cy", function(data) {
-                return svgHeight/2;
+            .attr("cy", function(data, index) {
+                return svgHeight/4;
             })
-            .attr("r", function(data) {
-                return 50;
+            .attr("r", function(data, index) {
+                return '50';
             })
             .attr("fill", 'black')
             .attr("opacity", ".8")
@@ -77,7 +85,7 @@ function makeResponsive() {
                     .duration(500)
                     .attr("r", '60')
                     .style("fill", "yellow");
-                //toolTip.show(data);
+                toolTip.show(data);
             })
             .on("mouseout", function(data, index) {
                 d3.select(this)
@@ -85,18 +93,17 @@ function makeResponsive() {
                     .duration(500)
                     .attr("r", "50")
                     .style("fill", "black");
-                //toolTip.hide(data);
+                toolTip.hide(data);
             });
-        
-        console.log(Object.keys(data).length);
+
         // State Abbr add
         chart.selectAll('g')
-            .data(data)
+            .data(wordList)
             .enter()
             .append("text")
-            .attr("x", function(data, index) { return ((index+1)/(Object.keys(jsonData.keys()).length+1) * svgWidth); })
+            .attr("x", function(data, index) { return ((index+1)/(data.length+1) * svgWidth); })
             .attr("y", function(data) { return svgHeight/4 + 5; })
-            .text(function (data) { return data.keys().toUpperCase(); })
+            .text(function (data) { return data.toUpperCase(); })
             .attr('fill', 'white')
             .style("font-size", function(data) { return '22'; })
             .style("text-anchor", "middle");
