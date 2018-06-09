@@ -13,10 +13,10 @@ function makeResponsive() {
         if (error) throw error;
 
         // if the SVG area isn't empty when the browser loads, remove it and replace it with a resized version of the chart
-        var svgArea = d3.select("#graphic").select("svg");
-        if (!svgArea.empty()) {
-            svgArea.remove();
-        };
+        // var svgArea = d3.select("#graphic").select("svg");
+        // if (!svgArea.empty()) {
+        //     svgArea.remove();
+        // };
 
         // Static arrays
         var keysList = [];
@@ -29,12 +29,14 @@ function makeResponsive() {
 
 
         var data = jsonData;
+        console.log(data);
         Object.keys(data).forEach(function (key){
             key.value = +key.value;
             valueListUnedit.push(data[key]);
             valueList.push(Math.round(data[key]));
             keysList.push(key);
         });
+
 
         // Create SVG wrapper
         var svg = d3.select("#graphic")

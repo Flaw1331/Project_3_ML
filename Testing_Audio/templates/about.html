@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/slate/bootstrap.min.css">
+    <link src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous">
+
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="index.html">Word Recognition</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a></li>
+                <li class="nav-item active"><a class="nav-link" href="/about">About</a></li>
+            </ul>
+        </div>
+</nav>
+
+</head>
+
+<body>
+    <header>
+        <br>
+        <b>
+            <h1 class='text-center'>About This Project</h1>
+        </b>
+    </header>
+    <div class="container">
+        <div class="text-center">
+            <!-- <br> -->
+            <br>
+
+        </div>
+
+        <div class="container">
+                <div class="card border-info">
+                        <div class="text-center">
+  
+                            <div class='card-body'>
+                            <h5>This project uses a Convolutional Neural Net trained on a set of words to predict speech. The project was inspired from a tensorflow Kaggle competition.</p><a href='https://kaggle.com/c/tensorflow-speech-recognition-challenge'>See Competition Info Here</a>
+                            </div>
+                    </div>
+                </div>   
+               
+        </div>
+        <br><br><br>
+        <div class="card border-info">
+                <div class="text-center">
+                <div class='card-header'><h3>How the model works</h3></div>
+                <div class='card-body'><p>The data used to train this model was roughly 1.5 GB of .wav files sampling 30 different words. There were roughly 1700 examples of each word.
+                    In order to run the .wav files through the model, they had to be first converted into a form that the model could analyze, in this case it was a .npy array. In order to do This
+                the .wav files were first converted into MFCC (Mel-frequency cepstral coefficients) using the librosa python library. This conversion is visualized below.</p>
+            <img src="http://127.0.0.1:8080/js/nfDAc.png"/>
+            <br>
+            <p>Once the files were in MFCC form, they were numpy compatible and were saved into .npy arrays, the model was trained on these arrays.</p>
+                  </div>
+            </div>
+    </div>
+<br>
+<div class="card border-info">
+        <div class="text-center">
+        <div class='card-header'><h3>Convnet Model Layout</h3></div>
+        <div class='card-body'><p>The highest accuracy reached on the training set was 95%, however it was found to be overfit. After adding in a couple dropout layers and a max pooling layer,
+             a score of 86% was achieved and was found to consistently label test data and user generated data correct. Below is a layout of the model.</p>
+    <img src="http://127.0.0.1:8080/js/model.png"/>
+          </div>
+    </div>
+</div>
+</body>
+</body>
+</body>
+
+</html>
