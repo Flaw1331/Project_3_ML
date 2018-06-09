@@ -1,3 +1,6 @@
+// Find json data
+// d3.json("./data/data.json", function (error, jsonData) {};
+
 // When the browser window is resized, responsify() is called.
 d3.select(window).on("resize", makeResponsive);
 
@@ -34,12 +37,6 @@ function makeResponsive() {
 
     var chart = svg.append('g');
 
-    // Append a div to the body to create tooltips, assign it a class
-    // d3.select("#graphic").select('svg')
-    //     .append("div")
-    //     .attr("class", "tooltip")
-    //     .style("opacity", 0);
-
     // Creating tooltips
     var toolTip = d3.tip()
         .attr('class', 'tooltip')
@@ -74,7 +71,7 @@ function makeResponsive() {
                 .transition()
                 .duration(500)
                 .attr("r", '60')
-                .style("fill", "red");
+                .style("fill", "yellow");
             toolTip.show(data);
         })
         .on("mouseout", function(data, index) {
@@ -91,7 +88,7 @@ function makeResponsive() {
         .data(wordList)
         .enter()
         .append("text")
-        .attr("x", function(data, index) { return ((index+1)/(posArray.length+1) * svgWidth); })
+        .attr("x", function(data, index) { return ((index+1)/(data.length+1) * svgWidth); })
         .attr("y", function(data) { return svgHeight/4 + 5; })
         .text(function (data) { return data.toUpperCase(); })
         .attr('fill', 'white')

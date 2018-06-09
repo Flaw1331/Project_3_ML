@@ -1,0 +1,62 @@
+{
+    "yes": {
+        "train_acc" : "80",
+        "train_err":"2",
+        "test_acc":"71",
+        "test_err":"1"
+    },
+    "no": {
+        "train_acc" : "85",
+        "train_err":"3",
+        "test_acc":"77",
+        "test_err":"2"
+    },
+    "up": {
+        "train_acc" : "90",
+        "train_err":"7",
+        "test_acc":"81",
+        "test_err":"3"
+    },
+    "down": {
+        "train_acc" : "82",
+        "train_err":"6",
+        "test_acc":"75",
+        "test_err":"4"
+    },
+    "left": {
+        "train_acc" : "84",
+        "train_err":"9",
+        "test_acc":"76",
+        "test_err":"5"
+    },
+    "right": {
+        "train_acc" : "89",
+        "train_err":"4",
+        "test_acc":"81",
+        "test_err":"6"
+    },
+    "on": {
+        "train_acc" : "91",
+        "train_err":"8",
+        "test_acc":"82",
+        "test_err":"7"
+    },
+    "off": {
+        "train_acc" : "95",
+        "train_err":"1",
+        "test_acc":"89",
+        "test_err":"8"
+    },
+    "stop": {
+        "train_acc" : "93",
+        "train_err":"9",
+        "test_acc":"85",
+        "test_err":"9"
+    },
+    "go": {
+        "train_acc" : "99",
+        "train_err":"5",
+        "test_acc":"83",
+        "test_err":"10"
+    }
+}
