@@ -17,6 +17,7 @@ from keras.utils import to_categorical
 import numpy as np
 from tqdm import tqdm
 from keras.models import load_model
+import pandas as pd
 
 from flask import (
     Flask,
@@ -63,9 +64,7 @@ def upload_file():
 
 @app.route("/predict")
 def whateverman():
-    filez = predict.get_file()
-    model = load_model('good_model.h5')
-    prediction = predict.predict('test_folder/' + filez, model=model)
+    prediction = predict.makePrediction()
     return jsonify(prediction)    
 
 if __name__ == "__main__":

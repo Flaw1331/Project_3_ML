@@ -9,12 +9,43 @@ from keras.utils import to_categorical
 import numpy as np
 from tqdm import tqdm
 from keras.models import load_model
+import pandas as pd
+# import necessary libraries
+import numpy as np
+import os
+import csv
+import pandas as pd
+from werkzeug.utils import secure_filename
+import json
+from flask_cors import CORS
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+import librosa
+import os as os
+from scipy.misc import comb
+from sklearn.model_selection import train_test_split
+from keras.utils import to_categorical
+import numpy as np
+from tqdm import tqdm
+from keras.models import load_model
+import pandas as pd
 
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True 
-config.log_device_placement = True                   
-sess = tf.Session(config=config)
-set_session(sess) 
+# config = tf.ConfigProto()
+# config.gpu_options.allow_growth = True 
+# config.log_device_placement = True                   
+# sess = tf.Session(config=config)
+# set_session(sess) 
+
+
+# variables
+
+# Second dimension of the feature is dim2
+feature_dim_2 = 11
+
+# # Feature dimension
+feature_dim_1 = 20
+channel = 1
+
 
 DATA_PATH = "../large_files/audio/"  
 
@@ -25,6 +56,11 @@ def predict(filepath, model):
             np.argmax(model.predict(sample_reshaped))
     ]
 
+def okpredict(filepath):
+   sample = wav2mfcc(filepath)
+   sample_reshaped = sample.reshape(1, feature_dim_1, feature_dim_2, channel)
+   return sample_reshaped
+   
 def wav2mfcc(file_path, max_len=11):
     wave, sr = librosa.load(file_path, mono=True, sr=None)
     wave = wave[::3]
@@ -52,6 +88,16 @@ def get_file():
     fnames = os.listdir(path)
     return (fnames[0])    
 
+def makePrediction(): 
+    model = load_model('good_model.h5')
+    filez = get_file()
+    test = model.predict(okpredict('./test_folder/' + filez))
+    ok = test.tolist()
+    names = get_labels()
+    labels = list(names)
+    dictionary = dict(zip(labels[0],ok[0]))
+    return dictionary
+
 # variables
 
 # Second dimension of the feature is dim2
@@ -60,7 +106,6 @@ feature_dim_2 = 11
 # # Feature dimension
 feature_dim_1 = 20
 channel = 1
-
 
 
 
